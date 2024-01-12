@@ -1,15 +1,85 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Articles</h1>
-
-<%= form_with url: search_path, method: :get do |form| %>
+ 
+<%
+=begin%>
+ <%= form_with url: search_path, method: :get do |form| %>
     <%= form.label :search %>
     <%= form.text_field :search %>
     <%= form.submit "search" %>
-<% end %>
+<% end %>  
+<%
+=end%>
+
+ <form id="search-form">
+    <%= label_tag :search %>
+    <%= text_field_tag :search, nil, id: "search-input" %>
+    <button type="button" id="search-button">Search</button>
+</form> 
+
 
 <div id="articles">
-  <%= render "articles/articles",  articles: @articles %>
+    <%= render "articles/articles",  articles: @articles %>
 </div>
 
 <%= link_to "New article", new_article_path %>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('search-form');
+  const searchInput = document.getElementById('search-input');
+  let debounceTimer;
+
+  searchInput.addEventListener('input', function() {
+    clearTimeout(debounceTimer);
+
+    debounceTimer = setTimeout(function() {
+      const formData = new FormData(form);
+      const searchValue = formData.get('search');
+
+      console.log('search value:', searchValue);
+      console.log('form.action', `http://localhost:3000/search.json?search=${searchValue}`);
+
+      fetch(`http://localhost:3000/search.json?search=${searchValue}`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest'
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.query);
+
+        const articlesContainer = document.getElementById('articles');
+        // Clear existing content before appending new articles
+        articlesContainer.innerHTML = '';
+        // Loop over the new articles and append them to the existing list
+        data.query.forEach(article => {
+          const articleDiv = document.createElement('div');
+          articleDiv.innerHTML = `
+            <p>
+              <div>
+                <p>
+                  <strong>Title:</strong>
+                  ${article.title}
+                </p>
+
+                <p>
+                  <strong>Content:</strong>
+                  ${article.content}
+                </p>
+              </div>
+              <a href="${article.url}">Show this article</a>
+            </p>
+          `;
+          articlesContainer.appendChild(articleDiv);
+        });
+      })
+      .catch(error => console.error('Error:', error));
+    }, 500);
+  });
+});
+</script>
