@@ -1,0 +1,26 @@
+development:
+  adapter: postgresql
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: db_admin
+  password: dbadmin123
+  host: localhost
+  database: search_analytics_tracker_development
+
+test:
+  adapter: postgresql
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: db_admin
+  password: dbadmin123
+  host: localhost
+  database: search_analytics_tracker_test
+
+production:
+  adapter: postgresql
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: your_production_database_username
+  password: your_production_database_password
+  host: your_production_database_host
+  database: your_app_production
