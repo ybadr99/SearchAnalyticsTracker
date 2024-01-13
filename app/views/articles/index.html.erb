@@ -110,11 +110,10 @@
       debounceTimer = setTimeout(function() {
         const formData = new FormData(form);
         const searchValue = formData.get('search');
+        const formAction = form.action;
+        const modifiedAction = formAction.replace('/articles', '/search.json');
 
-        console.log('search value:', searchValue);
-        console.log('form.action', `http://localhost:3000/search.json?search=${searchValue}`);
-
-        fetch(`http://localhost:3000/search.json?search=${searchValue}`, {
+        fetch(`${modifiedAction}?search=${searchValue}`, {
           method: 'GET',
           headers: {
             'Accept': 'application/json',
