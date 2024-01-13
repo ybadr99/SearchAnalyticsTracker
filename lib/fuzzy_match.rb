@@ -28,7 +28,7 @@ module FuzzyMatch
         matrix[str1.length][str2.length]
       end
   
-      def fuzzy_match(query, threshold = 8)
+      def fuzzy_match(query, threshold = 4)
         query = query.downcase
         best_match = nil
         min_distance = threshold + 1

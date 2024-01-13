@@ -89,6 +89,8 @@
 
   <div id='your-searches'>
     <h3>Your Searches</h3>
+    <p><strong>Your IP:</strong> <%= request.remote_ip %></p>
+
     <% @searchs.each do |search| %>
       <p class="search-query">
         <strong>Query:</strong>
