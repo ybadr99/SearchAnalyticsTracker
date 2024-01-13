@@ -1,40 +1,101 @@
-<p style="color: green"><%= notice %></p>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
 
-<h1>Articles</h1>
- 
-<%
-=begin%>
- <%= form_with url: search_path, method: :get do |form| %>
-    <%= form.label :search %>
-    <%= form.text_field :search %>
-    <%= form.submit "search" %>
-<% end %>  
-<%
-=end%>
+  #container {
+    margin: 0 auto;
+    width: 80%; /* Set your preferred width */
+    /* text-align: center; */
+  }
+  /* Style for the search form */
+  #search-form {
+    margin: 20px 0;
+    display:flex;
+    justify-content: center;
+  }
 
- <form id="search-form">
-    <%= label_tag :search %>
-    <%= text_field_tag :search, nil, id: "search-input" %>
-    <button type="button" id="search-button">Search</button>
-</form> 
+  #search-input {
+    padding: 5px 10px;
+    font-size: 18px;
+  }
+
+  #search-button {
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  /* Style for the articles container */
+  #articles {
+    margin-top: 20px;
+  }
+
+  /* Style for individual article div */
+  .article {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  /* Style for your searches container */
+  #your-searches {
+    margin-top: 20px;
+  }
+
+  /* Style for individual search query */
+  .search-query {
+    background-color: #f0f0f0;
+    padding: 5px;
+    margin-bottom: 5px;
+  }
+
+  .article {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Style for the title inside the article div */
+  .article strong {
+    color: #333;
+  }
+
+  /* Style for the content inside the article div */
+  .article p {
+    color: #555;
+  }
+</style>
 
 
-<div id="articles">
-    <%= render "articles/articles",  articles: @articles %>
-</div>
+<div id='container'>
+  
+  <form id="search-form">
+      <%= text_field_tag :search, nil, id: "search-input", placeholder:'search for aricle' %>
+  </form> 
 
-<%= link_to "New article", new_article_path %>
+  <%= link_to "New article", new_article_path %>
+
+  <div id="articles">
+      <%= render "articles/articles",  articles: @articles %>
+  </div>
 
 
-<div id='your-searches'>
-<h3>your searches</h3>
 
-  <% @searchs.each do |search| %>
-    <p>
-      <strong>query:</strong>
-      <%= search.query %>
-    </p>
-  <% end %>
+  <div id='your-searches'>
+    <h3>Your Searches</h3>
+    <% @searchs.each do |search| %>
+      <p class="search-query">
+        <strong>Query:</strong>
+        <%= search.query %>
+      </p>
+    <% end %>
+  </div>
 </div>
 
 <script>
@@ -43,7 +104,7 @@
     const searchInput = document.getElementById('search-input');
     let debounceTimer;
 
-    searchInput.addEventListener('input', function() {
+    searchInput.addEventListener('keyup', function() {
       clearTimeout(debounceTimer);
 
       debounceTimer = setTimeout(function() {
@@ -71,8 +132,8 @@
           data.forEach(article => {
             const articleDiv = document.createElement('div');
             articleDiv.innerHTML = `
-              <p>
-                <div>
+            <div class="article">
+
                   <p>
                     <strong>Title:</strong>
                     ${article.title}
@@ -83,8 +144,7 @@
                     ${article.content}
                   </p>
                 </div>
-                <a href="${article.url}">Show this article</a>
-              </p>
+              </div>
             `;
             articlesContainer.appendChild(articleDiv);
           });
