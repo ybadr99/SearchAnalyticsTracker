@@ -85,19 +85,18 @@
       <%= render "articles/articles",  articles: @articles %>
   </div>
 
-
-
-  <div id='your-searches'>
-    <h3>Your Searches</h3>
-    <p><strong>Your IP:</strong> <%= request.remote_ip %></p>
-
-    <% @searchs.each do |search| %>
-      <p class="search-query">
-        <strong>Query:</strong>
-        <%= search.query %>
-      </p>
+  <div id='your-searches' style="margin-top: 20px; border: 1px solid #ccc; padding: 10px;">
+    <h3 style="margin-bottom: 10px; color: #333;">Your Recent Searches</h3>
+    <% @searches.each do |search| %>
+      <div class="search-item" style="margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;">
+        <strong>Search Query:</strong> <%= search.query %>
+      </div>
     <% end %>
   </div>
+
+
+
+
 </div>
 
 <script>
