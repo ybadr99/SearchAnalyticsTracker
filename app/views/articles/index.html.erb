@@ -18,8 +18,10 @@
   }
 
   #search-input {
-    padding: 5px 10px;
+    padding: 16px;
     font-size: 18px;
+    width:40%;
+    border-radius: 5px;
   }
 
   #search-button {
@@ -79,7 +81,7 @@
       <%= text_field_tag :search, nil, id: "search-input", placeholder:'search for aricle' %>
   </form> 
 
-  <%= link_to "New article", new_article_path %>
+  <%= link_to "New article", new_article_path, class: "btn", style: "padding: 10px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;" %>
 
   <div id="articles">
       <%= render "articles/articles",  articles: @articles %>
@@ -112,9 +114,8 @@
         const formData = new FormData(form);
         const searchValue = formData.get('search');
         const formAction = form.action;
-        const modifiedAction = formAction.replace('/articles', '/search.json');
 
-        fetch(`${modifiedAction}?search=${searchValue}`, {
+        fetch(`${formAction}/search.json?search=${searchValue}`, {
           method: 'GET',
           headers: {
             'Accept': 'application/json',
