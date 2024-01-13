@@ -41,8 +41,7 @@ gem 'tzinfo-data', platforms: %i[windows jruby]
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
-gem 'elasticsearch'
-gem 'searchkick'
+gem 'ransack'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -70,3 +69,5 @@ group :test do
 end
 
 gem 'rubocop', '~> 1.59'
+
+gem "rack-cors", "~> 2.0"

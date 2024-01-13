@@ -26,60 +26,71 @@
 <%= link_to "New article", new_article_path %>
 
 
+<div id='your-searches'>
+<h3>your searches</h3>
+
+  <% @searchs.each do |search| %>
+    <p>
+      <strong>query:</strong>
+      <%= search.query %>
+    </p>
+  <% end %>
+</div>
+
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const form = document.getElementById('search-form');
-  const searchInput = document.getElementById('search-input');
-  let debounceTimer;
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('search-form');
+    const searchInput = document.getElementById('search-input');
+    let debounceTimer;
 
-  searchInput.addEventListener('input', function() {
-    clearTimeout(debounceTimer);
+    searchInput.addEventListener('input', function() {
+      clearTimeout(debounceTimer);
 
-    debounceTimer = setTimeout(function() {
-      const formData = new FormData(form);
-      const searchValue = formData.get('search');
+      debounceTimer = setTimeout(function() {
+        const formData = new FormData(form);
+        const searchValue = formData.get('search');
 
-      console.log('search value:', searchValue);
-      console.log('form.action', `http://localhost:3000/search.json?search=${searchValue}`);
+        console.log('search value:', searchValue);
+        console.log('form.action', `http://localhost:3000/search.json?search=${searchValue}`);
 
-      fetch(`http://localhost:3000/search.json?search=${searchValue}`, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'X-Requested-With': 'XMLHttpRequest'
-        }
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data.query);
+        fetch(`http://localhost:3000/search.json?search=${searchValue}`, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
 
-        const articlesContainer = document.getElementById('articles');
-        // Clear existing content before appending new articles
-        articlesContainer.innerHTML = '';
-        // Loop over the new articles and append them to the existing list
-        data.query.forEach(article => {
-          const articleDiv = document.createElement('div');
-          articleDiv.innerHTML = `
-            <p>
-              <div>
-                <p>
-                  <strong>Title:</strong>
-                  ${article.title}
-                </p>
+          const articlesContainer = document.getElementById('articles');
+          // Clear existing content before appending new articles
+          articlesContainer.innerHTML = '';
+          // Loop over the new articles and append them to the existing list
+          data.forEach(article => {
+            const articleDiv = document.createElement('div');
+            articleDiv.innerHTML = `
+              <p>
+                <div>
+                  <p>
+                    <strong>Title:</strong>
+                    ${article.title}
+                  </p>
 
-                <p>
-                  <strong>Content:</strong>
-                  ${article.content}
-                </p>
-              </div>
-              <a href="${article.url}">Show this article</a>
-            </p>
-          `;
-          articlesContainer.appendChild(articleDiv);
-        });
-      })
-      .catch(error => console.error('Error:', error));
-    }, 500);
+                  <p>
+                    <strong>Content:</strong>
+                    ${article.content}
+                  </p>
+                </div>
+                <a href="${article.url}">Show this article</a>
+              </p>
+            `;
+            articlesContainer.appendChild(articleDiv);
+          });
+        })
+        .catch(error => console.error('Error:', error));
+      }, 500);
+    });
   });
-});
 </script>

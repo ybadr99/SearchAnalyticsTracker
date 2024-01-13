@@ -1,15 +1,16 @@
 class SearchController < ApplicationController
   def search
-    @results = Article.search(params[:search])
+    query = params[:search]
+    
+    @results = Article.ransack(title_cont: query).result
 
-    @results = Article.search('*') if params[:search].blank?
+    # Check if there are results and the article title matches the query
+    if @results.present? && @results.any? { |article| article.title.downcase == query.downcase }
+      Search.find_or_create_by(query: query)
+    end
 
     respond_to do |format|
-      # format.turbo_stream do
-      #   render turbo_stream: turbo_stream.update('articles', partial: 'articles/articles',
-      #                                                        locals: { articles: @results })
-      # end
-      format.json { render json: @results } # JSON response
+      format.json { render json: @results }
     end
   end
 end
