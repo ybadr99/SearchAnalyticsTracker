@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ArticlesController < ApplicationController
   before_action :set_article, only: %i[show edit update destroy]
 
@@ -24,7 +26,7 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
       if @article.save
-        format.html { redirect_to article_url(@article), notice: 'Article was successfully created.' }
+        format.html { redirect_to root_path(@article), notice: 'Article was successfully created.' }
         format.json { render :show, status: :created, location: @article }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -50,7 +52,7 @@ class ArticlesController < ApplicationController
   def destroy
     @article = Article.find(params[:id])
     @article.destroy
-    
+
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Article was successfully destroyed.' }
       format.json { head :no_content }

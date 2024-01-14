@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FuzzyMatch
   class FuzzyMatcher
     def initialize(collection, options = {})

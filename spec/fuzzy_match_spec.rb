@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 require_relative '../lib/fuzzy_match'
 
 RSpec.describe FuzzyMatch::FuzzyMatcher do
   let(:collection) do
     [
-      {id: 1, name: 'Apple'},
-      {id: 2, name: 'Banana'},
-      {id: 3, name: 'Orange'},
-      {id: 4, name: 'Grapes'}
+      { id: 1, name: 'Apple' },
+      { id: 2, name: 'Banana' },
+      { id: 3, name: 'Orange' },
+      { id: 4, name: 'Grapes' }
     ]
   end
 
@@ -21,7 +23,7 @@ RSpec.describe FuzzyMatch::FuzzyMatcher do
 
   context 'when calculating levenshtein similarity' do
     it 'should calculate the correct levenshtein similarity' do
-      fuzzy_matcher = FuzzyMatch::FuzzyMatcher.new([])  # Initialize with an empty collection
+      fuzzy_matcher = FuzzyMatch::FuzzyMatcher.new([]) # Initialize with an empty collection
 
       similarity = fuzzy_matcher.calculate_levenshtein_distance('apple', 'aple')
 
@@ -31,13 +33,13 @@ RSpec.describe FuzzyMatch::FuzzyMatcher do
 
   context 'when performing fuzzy match' do
     it 'should return the best match' do
-        fuzzy_matcher = FuzzyMatch::FuzzyMatcher.new(collection, read: :name)
-      
-        result = fuzzy_matcher.fuzzy_match('aple')
-      
-        expect(result[:name]).to eq('Apple')
-      end
-      
+      fuzzy_matcher = FuzzyMatch::FuzzyMatcher.new(collection, read: :name)
+
+      result = fuzzy_matcher.fuzzy_match('aple')
+
+      expect(result[:name]).to eq('Apple')
+    end
+
     it 'should consider the threshold for similarity' do
       fuzzy_matcher = FuzzyMatch::FuzzyMatcher.new(collection, read: :name)
 

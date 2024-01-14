@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # db/seeds.rb
 
 # Create 10 dummy articles
