@@ -20,3 +20,8 @@ This Rails application is designed to create a realtime search box, allowing use
 ## Live Demo
 
 Check out the live demo of the app [here](https://realtime-search-1aec777a56b6.herokuapp.com/).
+
+### Issues and Work in Progress:
+
+- Creating a new article requires a page refresh before initiating a search.
+- Deleting a search query functionality is under development.
