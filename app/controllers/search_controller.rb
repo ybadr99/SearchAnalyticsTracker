@@ -10,9 +10,21 @@ class SearchController < ApplicationController
     end
 
     respond_to do |format|
+      format.html
       format.json { render json: @results }
     end
   end
+
+  def destroy
+    @search = Search.find(params[:id])
+    @search.destroy
+    
+    # respond_to do |format|
+    #   format.html { redirect_to root_path, notice: 'Article was successfully destroyed.' }
+    #   format.json { head :no_content }
+    # end
+  end
+  
 
   private
 

@@ -1,24 +1,22 @@
-# README
+# Realtime Search Analytics App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This Rails application is designed to create a realtime search box, allowing users to search for articles. The app also tracks user searches and provides analytics on what users are searching for the most. The search analytics are tracked per user, and the app handles real-time search queries.
 
-Things you may want to cover:
+## Features
 
-* Ruby version
+- Realtime search functionality
+- User-specific search analytics
+- Stylized frontend for a better user experience
+- RSpec tests for ensuring code quality and reliability
 
-* System dependencies
+## Technologies Used
 
-* Configuration
+- **Ruby on Rails**: Backend framework
+- **JavaScript (Vanilla)**: For frontend functionality
+- **RSpec**: Testing framework
+- **PostgreSQL**: Database for storing articles and search analytics
+- **Heroku**: Deployment platform for easy testing
 
-* Database creation
+## Live Demo
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Check out the live demo of the app [here](https://your-heroku-app-url.com).

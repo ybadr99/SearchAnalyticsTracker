@@ -71,3 +71,6 @@ end
 gem 'rubocop', '~> 1.59'
 
 gem 'rack-cors', '~> 2.0'
+gem 'amatch'
+
+gem "rspec", "~> 3.12"

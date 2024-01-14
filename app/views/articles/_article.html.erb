@@ -8,4 +8,6 @@
     <strong>Content:</strong>
     <%= article.content %>
   </p>
+  <%= button_to "remove", article, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger", style: "margin-top: 10px;" %>
+
 </div>
