@@ -7,7 +7,7 @@ class SearchController < ApplicationController
     @results = Article.ransack(title_cont: query).result
 
     # Check if there are results
-    store_most_complete_query(query, request.remote_ip) if @results.present?
+    store_most_complete_query(query, request.remote_ip)
 
     respond_to do |format|
       format.html
